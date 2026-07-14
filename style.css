@@ -1,0 +1,220 @@
+/* ===================================================
+   PORTFOLIO — "Classic Ink & Slate" Design System
+   =================================================== */
+
+/* 0. DESIGN TOKENS */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+:root {
+  --ink:          #12161C;   /* Deep Charcoal Navy — headings, primary text            */
+  --bg:           #FAF9F6;   /* Warm Paper White — page background                     */
+  --surface:      #F3F1EC;   /* Soft Ivory — card backgrounds, alternating sections     */
+  --border:       #E4E1D9;   /* Warm Stone — card borders, hairlines                   */
+  --muted:        #5B6470;   /* Slate Gray — body copy, secondary text                 */
+  --accent:       #0F5C57;   /* Deep Teal — buttons, links, active nav, icon highlights */
+  --accent-hover: #3F8A80;   /* Muted Sage — hover states on accent elements           */
+  --footer-bg:    #0B0E12;   /* Near-Black Navy — footer                               */
+  --footer-surface: #151A20;
+  --footer-border:  #262C34;
+}
+
+/* 1. BASE CONFIGURATION */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg);
+  color: var(--ink);
+  transition: background-color 0.4s ease, color 0.4s ease;
+  overflow-x: hidden;
+}
+
+/* 2. NAVIGATION & GLASSMORPHISM */
+.glass-nav {
+  background-color: rgba(250, 249, 246, 0.95);
+  border-bottom-color: var(--border);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+/* Nav Link Hover Animation */
+.nav-link {
+  position: relative;
+  color: var(--muted);
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: var(--accent);
+}
+
+.nav-link::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 1.5px;
+  bottom: -4px;
+  left: 0;
+  background-color: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+/* 3. MOBILE MENU */
+#mobileMenu {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(-10px) scaleY(0.95);
+  transform-origin: top;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#mobileMenu.active {
+  transform: translateY(0) scaleY(1) !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* Subtle link entrance animation */
+#mobileMenu.active .mobile-link {
+  animation: slideInFade 0.4s ease forwards;
+  opacity: 0;
+}
+
+/* Staggered delay for each link */
+#mobileMenu.active .mobile-link:nth-child(1) { animation-delay: 0.1s; }
+#mobileMenu.active .mobile-link:nth-child(2) { animation-delay: 0.15s; }
+#mobileMenu.active .mobile-link:nth-child(3) { animation-delay: 0.2s; }
+#mobileMenu.active .mobile-link:nth-child(4) { animation-delay: 0.25s; }
+#mobileMenu.active .mobile-link:nth-child(5) { animation-delay: 0.3s; }
+
+@keyframes slideInFade {
+  from { transform: translateX(-10px); opacity: 0; }
+  to   { transform: translateX(0);     opacity: 1; }
+}
+
+/* 4. SCROLL REVEAL ANIMATIONS */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .reveal {
+    transition: all 0.6s ease-out;
+  }
+}
+
+/* 5. CARD & INTERACTIVE ELEMENTS */
+.edu-card {
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.edu-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 25px -5px rgba(15, 92, 87, 0.08);
+}
+
+/* Tech / Skill pills — shared hover transition */
+.pill {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.pill:hover {
+  background-color: var(--accent);
+  color: #fff;
+  border-color: var(--accent);
+}
+
+/* Contact form inputs */
+.contact-input {
+  transition: all 0.3s ease;
+}
+
+.contact-input:focus {
+  border-color: var(--accent) !important;
+  box-shadow: 0 0 0 3px rgba(15, 92, 87, 0.12);
+  outline: none;
+}
+
+/* 6. HERO & UTILITY */
+@keyframes float {
+  0%   { transform: translateY(0px);   }
+  50%  { transform: translateY(-10px); }
+  100% { transform: translateY(0px);   }
+}
+
+.float-element {
+  animation: float 4s ease-in-out infinite;
+}
+
+.rotating-badge-text {
+  animation: rotate 12s linear infinite;
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* 7. HEADER SCROLL BEHAVIOR */
+header {
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              background-color 0.4s ease,
+              border-color 0.4s ease;
+  will-change: transform;
+}
+
+/* 8. PROJECT CARDS */
+.project-card .relative.overflow-hidden {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.project-card img {
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@media (max-width: 1024px) {
+  .project-card {
+    text-align: left;
+    gap: 2rem;
+  }
+}
+
+/* 9. CUSTOM SCROLLBAR */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+/* 10. SELECTION */
+::selection {
+  background-color: var(--accent);
+  color: #fff;
+}
